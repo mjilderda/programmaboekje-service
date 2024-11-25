@@ -1,0 +1,11 @@
+quarkus:
+  datasource:
+    db-kind: postgresql
+    username: marcel
+    jdbc:
+      url: jdbc:postgresql://localhost:5432/programmaboekje
+      max-size: 16
+  hibernate-orm:
+    database:
+      generation: update
+    sql-load-script: no-file
