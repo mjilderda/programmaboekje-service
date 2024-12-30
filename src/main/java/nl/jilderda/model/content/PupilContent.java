@@ -1,17 +1,12 @@
 package nl.jilderda.model.content;
 
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Named;
-import jakarta.ws.rs.Produces;
 
 @ApplicationScoped
 public class PupilContent {
 
-    @Produces
-    @Named("pupilUitnodiging")
-    public String getAppName() {
+    public String getPupilUitnodiging() {
         return """
-                
                 Hoi ouder/verzorger van <<pupil.vooornaam>>,\s
                 
                 Wat leuk dat <<pupil.voornaam>> zo enthousiast is! 😄
