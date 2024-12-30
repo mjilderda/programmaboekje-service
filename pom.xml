@@ -14,8 +14,9 @@
         <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
         <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
         <quarkus.platform.version>3.16.4</quarkus.platform.version>
-        <skipITs>true</skipITs>
+        <quarkus.openapi-generator.version>2.6.0-lts</quarkus.openapi-generator.version>
         <surefire-plugin.version>3.5.0</surefire-plugin.version>
+        <skipITs>true</skipITs>
     </properties>
 
     <dependencyManagement>
@@ -88,6 +89,11 @@
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-liquibase</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkiverse.openapi.generator</groupId>
+            <artifactId>quarkus-openapi-generator-server</artifactId>
+            <version>${quarkus.openapi-generator.version}</version>
         </dependency>
     </dependencies>
 

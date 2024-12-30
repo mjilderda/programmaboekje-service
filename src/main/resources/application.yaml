@@ -1,4 +1,9 @@
 quarkus:
+  openapi:
+    generator:
+      spec: programmaboekje-service.yaml
+      base-package: nl.jilderda.rest
+
   datasource:
     db-kind: postgresql
     username: marcel

@@ -1,0 +1,178 @@
+openapi: 3.0.1
+
+info:
+  title: Programmaboekje service API
+  description: |
+    Programmaboekje service API
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8080/
+    description: "Local development"
+
+tags:
+  - name: wedstrijd
+    description: Alle endpoints benodigd voor de CRUD-operaties voor de wedstrijden
+  - name: content
+    description: Alle endpoints benodigd voor het ophalen van content
+  - name: test
+    description: Endpoint ten behoeve van test
+
+paths:
+  /wedstrijd:
+    put:
+      tags:
+        - wedstrijd
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/newWedstrijdDto"
+      operationId: putWedstrijd
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/wedstrijdDto"
+    get:
+      tags:
+        - wedstrijd
+      operationId: getWedstrijden
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/opgehaaldeWedstrijdenDto"
+
+  /wedstrijd/{wedstrijd_id}:
+    get:
+      tags:
+        - wedstrijd
+      operationId: getWedstrijd
+      parameters:
+        - name: wedstrijd_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/wedstrijdDto"
+    delete:
+      tags:
+        - wedstrijd
+      operationId: verwijderWedstrijd
+      parameters:
+        - name: wedstrijd_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: OK
+
+  /content:
+    get:
+      tags:
+        - content
+      operationId: getPupilContent
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/pupilContentDto"
+
+  /hello:
+    get:
+      tags:
+        - test
+      operationId: getHello
+      responses:
+        200:
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+
+components:
+  schemas:
+    newWedstrijdDto:
+      title: Nieuwe wedstrijd
+      type: object
+      properties:
+        datum:
+          type: string
+          description: "Een datum zonder tijd (YYYY-MM-DD)"
+        tegenstander:
+          type: string
+      required:
+        - datum
+        - tegenstander
+
+    wedstrijdDto:
+      title: wedstrijd
+      allOf:
+        - $ref: "#/components/schemas/newWedstrijdDto"
+      type: object
+      properties:
+        id:
+          type: integer
+      required:
+        - id
+        - datum
+        - tegenstander
+
+    opgehaaldeWedstrijdenDto:
+      type: object
+      properties:
+        resultaat:
+          type: array
+          items:
+            $ref: "#/components/schemas/wedstrijdDto"
+        totaalAantalItems:
+          type: integer
+          format: int64
+
+    pupilDto:
+      title: Pupil
+      type: object
+      properties:
+        voornaam:
+          type: string
+        achternaam:
+          type: string
+        emailadresOuder:
+          type: string
+      required:
+        - voornaam
+        - achternaam
+
+    pupilContentDto:
+      title: pupilContent
+      allOf:
+        - $ref: "#/components/schemas/pupilDto"
+      type: object
+      properties:
+        content:
+          type: string
+      required:
+        - content
+
+  responses:
+    accepted:
+      description: ACCEPTED
